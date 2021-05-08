@@ -37,7 +37,7 @@ def handler(event, context):
         # print(df_prev_cleaned.head())
 
     body = {
-        "message": "Success V2: Clean and insert into DB. V2",
+        "message": "Success V3: Clean and insert into DB. V3",
     }
 
     response = {"statusCode": 200, "body": json.dumps(body)}
