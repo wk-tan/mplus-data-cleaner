@@ -31,7 +31,6 @@ def write_to_s3_from_file(csv_filepath):
         csv_filepath ([str]): csv_filepath
     """
     try:
-        s3 = create_s3_session()
         basename = os.path.basename(csv_filepath)
         date_str = basename.split(".")[0].split("_")[0]
         date_dt = parse(date_str)
