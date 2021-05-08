@@ -1,9 +1,6 @@
-import glob
 import os
 from io import StringIO
 
-import boto3
-import pandas as pd
 from dateutil.parser import parse
 
 from aws.s3 import create_s3_session
@@ -28,7 +25,7 @@ def write_clean_df(clean_df):
 
 
 def write_to_s3_from_file(csv_filepath):
-    """Write csv file to s3 given csv file path (on Asus Laptop)
+    """Write csv file to s3 given csv file path (on Asus Laptop/mass writer)
 
     Args:
         csv_filepath ([str]): csv_filepath
@@ -46,14 +43,3 @@ def write_to_s3_from_file(csv_filepath):
         )
     except Exception as err:
         print("Error @write_to_s3_from_file:", err)
-
-
-def mass_write(path):
-    """Write all mplus csv files to S3 in the directory `path`
-
-    Args:
-        path ([str]): mplus data directory
-    """
-    csv_files = glob.glob(os.path.join(path, "2*.csv"))
-    for csv_filepath in csv_files:
-        write_to_s3(csv_filepath)

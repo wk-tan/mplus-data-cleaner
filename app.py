@@ -2,40 +2,42 @@ import json
 import os
 
 from aws.checker import duplicate_check
-from aws.db_writer import clean_data
-from aws.s3_loader import get_latest_keypath, load_from_s3
+from aws.s3_task import find_prev_date_str, list_exist_date_str, load_and_clean_data
 from aws.s3_writer import write_clean_df
 
 
 def handler(event, context):
-    # Load S3 latest csv
-    # AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    # AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    # from event, obtained current_date_str:
+    current_date_str = "20210505"  ### FROM EVENT!
 
-    ## From event, obtained latest csv object in S3
-    keypath_today = get_latest_keypath(n=-1)  # or obtained from event
+    # load current raw df and clean
+    current_clean_df = load_and_clean_data(current_date_str)
 
-    ## Clean: df_today_cleaned
-    df_today_cleaned = clean_data(keypath_today)
+    # check if current raw and clean dfs in s3
+    is_exist_raw = current_date_str in list_exist_date_str(root_dir="mplus")
+    is_exist_clean = current_date_str in list_exist_date_str(root_dir="clean_mplus")
+    if is_exist_raw and is_exist_clean:
+        # Skip processing
+        print("Skip:", current_date_str)
+    else:
+        # find and clean prev df, then check if duplicated (holiday)
+        prev_date_str = find_prev_date_str(current_date_str)
+        if prev_date_str is not None:
+            prev_clean_df = load_and_clean_data(prev_date_str)
+            is_duplicated = duplicate_check(current_clean_df, prev_clean_df)
+        else:
+            is_duplicated = False
 
-    # Check if duplicates (holiday)
-    ## Load previous day data
-    keypath_prev = get_latest_keypath(n=-2)  # or obtained from event
-
-    ## Clean: df_prev_cleaned
-    df_prev_cleaned = clean_data(keypath_prev)
-
-    ## Compare df_today_cleaned vs df_prev_cleaned
-    is_duplicated = duplicate_check(df_today_cleaned, df_prev_cleaned)
-
-    # If not duplicates
-    if not is_duplicated:
-        ## Write df_today_cleaned to s3
-        write_clean_df(df_today_cleaned)
+        if not is_duplicated:
+            # write raw and clean df to s3
+            write_clean_df(current_clean_df)
+            print("Done:", current_date_str)
+        else:
+            print("Duplicated:", current_date_str)
 
     body = {
-        "message": "Success V3: Clean and insert into DB. Date: {}".format(
-            keypath_today
+        "message": "Success V4: Clean and insert into DB. Date: {}".format(
+            current_date_str
         ),
     }
 
