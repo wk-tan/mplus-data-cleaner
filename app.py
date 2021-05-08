@@ -2,8 +2,9 @@ import json
 import os
 
 from aws.checker import duplicate_check
-from aws.db_writer import clean_data, insert_data
+from aws.db_writer import clean_data
 from aws.s3_loader import get_latest_keypath, load_from_s3
+from aws.s3_writer import write_clean_df
 
 
 def handler(event, context):
@@ -29,15 +30,13 @@ def handler(event, context):
 
     # If not duplicates
     if not is_duplicated:
-        ## Insert into db
-        "insert df_today_cleaned into db"
-        # print("today:", keypath_today)
-        # print("prev:", keypath_prev)
-        # print(df_today_cleaned.head())
-        # print(df_prev_cleaned.head())
+        ## Write df_today_cleaned to s3
+        write_clean_df(df_today_cleaned)
 
     body = {
-        "message": "Success V3: Clean and insert into DB. V3",
+        "message": "Success V3: Clean and insert into DB. Date: {}".format(
+            keypath_today
+        ),
     }
 
     response = {"statusCode": 200, "body": json.dumps(body)}
