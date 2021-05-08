@@ -12,14 +12,6 @@ from src.utils import (
     write_clean_df,
 )
 
-# from aws.checker import duplicate_check
-# from aws.s3 import create_s3_session
-# from aws.s3_task import find_prev_date_str, list_exist_date_str, load_and_clean_data
-# from aws.s3_writer import write_clean_df, write_to_s3_from_file
-
-
-# s3 = create_s3_session()
-
 csvs_path = r"C:\Users\jy\GoogleDrive2\_mpdata\_mpdata"
 # csvs_path = r"C:\Users\jy\GoogleDrive2\mpdata"
 
