@@ -1,5 +1,4 @@
 import json
-import os
 
 from aws.checker import duplicate_check
 from aws.s3_task import find_prev_date_str, list_exist_date_str, load_and_clean_data
