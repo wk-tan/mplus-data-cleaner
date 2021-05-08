@@ -1,6 +1,4 @@
 import json
-from os import F_OK
-from socket import SO_RCVBUF
 
 from src.utils import (
     duplicate_check,
@@ -19,7 +17,6 @@ def handler(event, context):
     current_date_str = key.split(sep="/", maxsplit=1)[1].rsplit(sep="/", maxsplit=1)[0]
     current_clean_df = load_and_clean_data(current_date_str)
 
-    # TODO: rethink as this is not scalable
     prev_date_str = find_prev_date_str(current_date_str)
     if prev_date_str is not None:
         prev_clean_df = load_and_clean_data(prev_date_str)
