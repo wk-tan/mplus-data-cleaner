@@ -11,15 +11,6 @@ provider:
   timeout: 120
   logRetentionInDays: 90
   role: ${self:custom.config.lambdaRoleArn}
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "s3:GetBucketNotification"
-        - "s3:PutBucketNotification"
-      Resource:
-        Fn::Join:
-          - ""
-          - - "arn:aws:s3:::${self:custom.config.s3Bucket}"
   lambdaHashingVersion: 20201221
   stackName: mplus-data-cleaner-stack
 
@@ -29,13 +20,10 @@ functions:
     image: ${self:custom.config.ecrImageURI}
     description: Clean MPlus daily EOD data
     events:
-      - existingS3:
+      - s3:
           bucket: ${self:custom.config.s3Bucket}
-          events:
-            - s3:ObjectCreated:*
+          event: s3:ObjectCreated:*
           rules:
             - prefix: mplus/
             - suffix: data.csv
-
-plugins:
-  - serverless-plugin-existing-s3
+          existing: true
