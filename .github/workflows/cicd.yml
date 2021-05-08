@@ -52,8 +52,14 @@ jobs:
       - name: "Install Serverless Framework"
         run: npm install -g serverless@2.33.1
 
+      - name: "Install Serverless Framework plugin"
+        run: npm install serverless-plugin-existing-s3
+
       - name: "Authenticate Serverless Framework with AWS credentials"
         run: sls config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
 
       - name: "Execute Serverless Framework deployment"
         run: sls deploy --stage $ENVIRONMENT
+
+      - name: "Execute Serverless Framework S3 deployment"
+        run: sls s3deploy --stage $ENVIRONMENT

@@ -45,7 +45,7 @@ def find_prev_date_str(date_str):
     Returns:
         [str]: prev_date_str
     """
-    date_strs = list_exist_date_str()
+    date_strs = list_exist_date_str(root_dir="clean_mplus")
     date_dts = pd.to_datetime(date_strs)
     date_dts.sort_values()
     prev_dates = date_dts[(date_dts < parse(date_str))]

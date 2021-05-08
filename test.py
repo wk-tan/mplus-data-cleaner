@@ -6,3 +6,6 @@ keypath_today = get_latest_keypath(n=-1)  # or obtained from event
 print(keypath_today)
 df_today_cleaned = clean_data(keypath_today)
 print(df_today_cleaned)
+
+
+[JYLocal] -> [S3] -> [Lambda] -> [S3] -> 
