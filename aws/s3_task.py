@@ -30,7 +30,7 @@ def list_exist_date_str(root_dir="mplus"):
     """
     date_strs = [
         parse_keypath(obj["Key"])
-        for obj in s3.list_objects(Bucket="malaysia-stock-eod-data")["Contents"]
+        for obj in s3.list_objects_v2(Bucket="malaysia-stock-eod-data")["Contents"]
         if obj["Key"].split("/")[0] == root_dir
     ]
     return date_strs
