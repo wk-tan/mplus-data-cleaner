@@ -1,44 +1,41 @@
 import json
-import os
+from os import F_OK
+from socket import SO_RCVBUF
 
 from aws.checker import duplicate_check
-from aws.db_writer import clean_data
-from aws.s3_loader import get_latest_keypath, load_from_s3
+from aws.s3_task import find_prev_date_str, list_exist_date_str, load_and_clean_data
 from aws.s3_writer import write_clean_df
 
 
 def handler(event, context):
-    # Load S3 latest csv
-    # AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    # AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    # bucket = "malaysia-stock-eod-data"
+    # key = "mplus/2021/05/07/data.csv"
+    bucket = event["Records"][0]["s3"]["bucket"]["name"]
+    key = event["Records"][0]["s3"]["object"]["key"]
 
-    ## From event, obtained latest csv object in S3
-    keypath_today = get_latest_keypath(n=-1)  # or obtained from event
+    current_date_str = key.split(sep="/", maxsplit=1)[1].rsplit(sep="/", maxsplit=1)[0]
+    current_clean_df = load_and_clean_data(current_date_str)
 
-    ## Clean: df_today_cleaned
-    df_today_cleaned = clean_data(keypath_today)
+    # TODO: rethink as this is not scalable
+    prev_date_str = find_prev_date_str(current_date_str)
+    if prev_date_str is not None:
+        prev_clean_df = load_and_clean_data(prev_date_str)
+        is_duplicated = duplicate_check(current_clean_df, prev_clean_df)
+    else:
+        is_duplicated = False
 
-    # Check if duplicates (holiday)
-    ## Load previous day data
-    keypath_prev = get_latest_keypath(n=-2)  # or obtained from event
-
-    ## Clean: df_prev_cleaned
-    df_prev_cleaned = clean_data(keypath_prev)
-
-    ## Compare df_today_cleaned vs df_prev_cleaned
-    is_duplicated = duplicate_check(df_today_cleaned, df_prev_cleaned)
-
-    # If not duplicates
     if not is_duplicated:
-        ## Write df_today_cleaned to s3
-        write_clean_df(df_today_cleaned)
+        # write raw and clean df to s3
+        write_clean_df(current_clean_df)
+        print("Done:", current_date_str)
+    else:
+        print("Duplicated:", current_date_str)
 
     body = {
-        "message": "Success V3: Clean and insert into DB. Date: {}".format(
-            keypath_today
+        "message": "Success V4: Clean and insert into DB. Date: {}".format(
+            current_date_str
         ),
     }
-
     response = {"statusCode": 200, "body": json.dumps(body)}
 
-    return response
+    return None

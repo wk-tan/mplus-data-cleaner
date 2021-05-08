@@ -3,10 +3,10 @@ import pandas as pd
 
 
 def duplicate_check(df0, df1):
-    """Check identical cleaned_df using volume data: 
-        1. merge on code, 
-        2. compare volume, 
-        3. return true if 99% identical volume
+    """Check identical cleaned_df using volume data:
+    1. merge on code,
+    2. compare volume,
+    3. return true if 99% identical volume
     """
     check_cols = ["Code", "Volume"]
     df0 = df0[check_cols]  # .copy()

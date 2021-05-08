@@ -2,3 +2,4 @@ awsRegion: ap-southeast-1
 awsAccountId: 366275749037
 lambdaRoleArn: arn:aws:iam::366275749037:role/mplus-data-cleaner-role
 ownerEmail: junyittc@gmail.com
+s3Bucket: malaysia-stock-eod-data
