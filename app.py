@@ -32,10 +32,10 @@ def handler(event, context):
         print("Duplicated:", current_date_str)
 
     body = {
-        "message": "Success V4: Clean and insert into DB. Date: {}".format(
+        "message": "Success V5: Clean and insert into DB. Date: {}".format(
             current_date_str
         ),
     }
     response = {"statusCode": 200, "body": json.dumps(body)}
 
-    return None
+    return response
