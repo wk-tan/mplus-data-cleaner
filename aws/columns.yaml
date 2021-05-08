@@ -1,0 +1,148 @@
+# ID
+Date: "Date"
+Code: "Code*"
+Stock: "Stock*"
+StockLongName: "Stock Long Name*"
+
+# OHLCV
+Open: "Open"
+High: "High"
+Low: "Low"
+Close: "Last*"
+Volume: "Vol*"
+
+# Returns, Chg, Swing
+PctChange: "Chg%*"
+PriceChange: "Chg*"
+BidChange: "Chg Bid"
+PriceSwg: "Swg*"
+PctSwg: "Swg%*"
+
+# Ref-Price, VWAP
+PrvClose: "Prv Close*"
+RefPrice: "Ref*"
+VWAP: "VWAP"
+
+# Market & Sector
+ListedMarket: "Listed on"
+MemberIndices: "Member of Indices"
+Sector: "Sector"
+
+# MarketCap, Shares Details
+MarketCap: "M-Cap*"
+PCap: "P-Cap"
+NumShares: "S-Issued*"
+Par: "Par"
+
+# Status
+Status: "Status"
+Ent: "Ent"
+RSS: "RSS"
+StatusIndicator: "Status Ind"
+DetailedStatus: "Detailed Status"
+
+# Down/Uptick
+Downtick: "Downtick"
+Uptick: "Uptick"
+MoneyFlow: "Money Flow"
+
+# Number of transactions
+Btran: "B-T"
+MBtran: "M-B Trans"
+ABtran: "A-B Trans"
+Stran: "S-T"
+MStran: "M-S Trans"
+AStran: "A-S Trans"
+tran: "Trans*"
+Mtran: "M-Trans"
+Atran: "A-Trans"
+
+# Value
+Bval: "Buy Value"
+MBval: "M-B Val"
+ABval: "A-B Val"
+Sval: "Sell Value"
+MSval: "M-S Val"
+ASval: "A-S Val"
+val: "Value*"
+Mval: "M-Val"
+Aval: "A-Val"
+
+# Volume
+RSSVol: "RSS Vol"
+AvgVol: "Avg Vol"
+MAvgVol: "M-Avg Vol"
+AAvgVol: "A-Avg Vol"
+
+MSvol: "M-S Vol"
+ASvol: "A-S Vol"
+Svol: "S-Vol"
+
+MBvol: "M-B Vol"
+ABvol: "A-B Vol"
+Bvol: "B-Vol"
+
+Mvol: "M-Vol"
+Avol: "A-Vol"
+
+# OMTM
+OMTMtran: "OMTM Trans"
+OMTMval: "OMTM Val"
+OMTMvol: "OMTM Vol"
+
+# Dir
+Dirval: "Dir-Val*"
+Dirvol: "Dir-Vol*"
+
+# Open
+Opentran: "O-Trans"
+Openval: "O-Val"
+Openvol: "O-Vol"
+
+# Fundamentals
+FYEDate: "FYE"
+Div: "Div*"
+DY: "DY*"
+EPS: "EPS*"
+NAB: "NAB*"
+NetProfit: "Net Profit"
+PE: "P/E*"
+Revenue: "Revenue"
+L4QDate: "L4Q Date"
+L4QDiv: "L4Q Div"
+L4QDY: "L4Q DY"
+L4QEPS: "L4Q EPS"
+L4QNAB: "L4Q NAB"
+L4QNetProfit: "L4Q Net Profit"
+L4QPE: "L4Q P/E"
+L4QRevenue: "L4Q Revenue"
+
+# Warrant
+ConversionMethod: "Conversion Method"
+ConversionPeriod: "Conversion Period"
+CPpct: "CP%"
+ExpiredDays: "M-Day"
+ExercisePrice: "Ex-P"
+MaturityDate: "Maturity*"
+Gearing: "Gear*"
+Premium: "Premium*"
+WarrantRemarks: "Remarks"
+UnderlyingClose: "M-Last"
+
+# Features
+# Avg Price
+AvgBPrice: "Avg B-Price"
+AvgSPrice: "Avg S-Price"
+MAvgPrice: "M-Avg Price"
+AAvgPrice: "A-Avg Price"
+
+# BS% - features
+Bpct: "B%*"
+MBpct: "M-B%"
+ABpct: "A-B%"
+Btranpct: "Trans B%"
+MBtranpct: "M-Trans B%"
+ABtranpct: "A-Trans B%"
+Bvalpct: "Value B%"
+MBvalpct: "M-Val B%"
+ABvalpct: "A-Val B%"

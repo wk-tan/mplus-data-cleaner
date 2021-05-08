@@ -1,0 +1,59 @@
+name: CICD AWS Lambda with ECR
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: prod
+      ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      ECR_REPOSITORY: mplus-data-cleaner
+
+    steps:
+      - name: "Checkout GitHub Actions"
+        uses: actions/checkout@main
+
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1
+
+      - name: "Login to Amazon ECR"
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: "Build, tag and push image to Amazon ECR"
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build --build-arg AWS_ACCESS_KEY_ID=$ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY --build-arg S3_PYPI=$S3_PYPI -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      - name: "Update image URI to serverless config"
+        run: |
+          echo $'\necrImageURI: ${{ steps.build-image.outputs.image }}' >> config.$ENVIRONMENT.yml
+          cat config.$ENVIRONMENT.yml
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+
+      - name: "Install Serverless Framework"
+        run: npm install -g serverless@2.33.1
+
+      - name: "Authenticate Serverless Framework with AWS credentials"
+        run: sls config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
+
+      - name: "Execute Serverless Framework deployment"
+        run: sls deploy --stage $ENVIRONMENT
