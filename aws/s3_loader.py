@@ -7,6 +7,8 @@ from dateutil.parser import parse
 
 from aws.s3 import create_s3_session
 
+s3 = create_s3_session()
+
 
 def load_from_s3(date_str):
     """Load raw object from s3
@@ -18,7 +20,6 @@ def load_from_s3(date_str):
     """
     # date_str = "2020-01-05"
     try:
-        s3 = create_s3_session()
         date_dt = parse(date_str)
         date_param = date_dt.strftime("%Y/%m/%d")
         response = s3.get_object(
@@ -52,7 +53,6 @@ def get_latest_keypath(n=-1):
     Returns:
         [str]: date_str
     """
-    s3 = create_s3_session()
     keys = [
         obj["Key"]
         for obj in s3.list_objects(Bucket="malaysia-stock-eod-data")["Contents"]
