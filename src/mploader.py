@@ -49,7 +49,7 @@ def remove_plus(x):
 
 
 class LoadMP:
-    SELECTED = load_yaml("./aws/columns.yaml")
+    SELECTED = load_yaml("./src/columns.yaml")
 
     def __init__(self, date_str, input_df=None):
         self.date_dt = parse(date_str)
