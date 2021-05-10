@@ -1,5 +1,6 @@
 import json
 
+from src.google.gcs import upload_blob
 from src.utils import (
     duplicate_check,
     find_prev_date_str,
@@ -25,8 +26,15 @@ def handler(event, context):
         is_duplicated = False
 
     if not is_duplicated:
-        # write raw and clean df to s3
+        # write clean df to s3
         write_clean_df(current_clean_df)
+
+        # write clean df to gcs
+        upload_blob(
+            bucket="malaysia-stock-eod-data",
+            blob_name="cleaned_mplus/{}".format(key.split(sep="/", maxsplit=1)[1]),
+            data=current_clean_df.to_csv(index=False),
+        )
         print("Done:", current_date_str)
     else:
         print("Duplicated:", current_date_str)

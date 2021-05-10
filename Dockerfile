@@ -1,11 +1,7 @@
 FROM public.ecr.aws/lambda/python:3.8
 
+COPY . ${LAMBDA_TASK_ROOT}/
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt --target ${LAMBDA_TASK_ROOT}
 
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-
-COPY src ./src
-COPY app.py ./
-
-# You can overwrite command in `serverless.yml` template
 CMD ["app.handler"]
