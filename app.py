@@ -1,5 +1,7 @@
 import json
 
+from google.cloud import bigquery
+from src.google.bq import load_data
 from src.google.gcs import upload_blob
 from src.utils import (
     duplicate_check,
@@ -30,11 +32,23 @@ def handler(event, context):
         write_clean_df(current_clean_df)
 
         # write clean df to gcs
+        gcs_data_path = "cleaned_mplus/{}".format(key.split(sep="/", maxsplit=1)[1])
         upload_blob(
             bucket="malaysia-stock-eod-data",
-            blob_name="cleaned_mplus/{}".format(key.split(sep="/", maxsplit=1)[1]),
+            blob_name=gcs_data_path,
             data=current_clean_df.to_csv(index=False),
         )
+
+        # fire API to insert gcs latest clean_df to big_query
+        load_data(
+            source_uri="gs://malaysia-stock-eod-data/" + gcs_data_path,
+            target_destination=bigquery.Table(
+                table_ref="malaysia-stock-research.malaysia_derivatives.eod_data"
+            ),
+            source_type="csv",
+            write_disposition="append",
+        )
+
         print("Done:", current_date_str)
     else:
         print("Duplicated:", current_date_str)
