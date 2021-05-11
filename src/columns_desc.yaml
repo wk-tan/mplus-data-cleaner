@@ -1,0 +1,152 @@
+# ID
+Date: "Date"
+Code: "Stock code (unique and static)"
+Stock: "Stock symbol (unique but not static)"
+StockLongName: "Stock's long name"
+
+# OHLCV
+Open: "Open"
+High: "High"
+Low: "Low"
+Close: "Close"
+Volume: "Volume"
+
+# Returns, Chg, Swing
+PctChange: "Daily percentage change*100 (Close to RefPrice)"
+PriceChange: "Daily price change (Close to RefPrice)"
+BidChange: "Daily price change expressed in number of ticks"
+PriceSwg: "High minus Low"
+PctSwg: "(High minus Low) divided by RefPrice (in decimal)"
+
+# Ref-Price, VWAP
+PrvClose: "Previous trading day's Close"
+RefPrice: "Adjusted PrvClose after dividend/split/etc."
+VWAP: "Intraday volume weighted average price"
+
+# Market & Sector
+ListedMarket: "Bursa market board (Main/ACE/etc.)"
+MemberIndices: "Indices which the stock is on."
+Sector: "Sector"
+
+# MarketCap, Shares Details
+MarketCap: "Market capitalization"
+PCap: "Paid up capital"
+NumShares: "Number of shares issued"
+Par: "Par value of a share"
+
+# Status
+Status: "Current status of the stock (Active/Suspended etc.)"
+Ent: "Entitlement (whether the stock is subjected to future corporate exercises/dividends)"
+RSS: "Regulated Short Selling status (Yes/No)"
+StatusIndicator: "Status expressed as special characters"
+DetailedStatus: "Detailed Status"
+
+# Down/Uptick
+Downtick: "Downtick"
+Uptick: "Uptick"
+MoneyFlow: "Money Flow"
+
+# Number of transactions 
+## Note: buy + sell + opening/closing volume or value = total volume or value
+Btran: "Number of buy transactions"
+MBtran: "Number of buy transactions during the morning session"
+ABtran: "Number of buy transactions during the afternoon session"
+Stran: "Number of sell transactions"
+MStran: "Number of sell transactions during the morning session"
+AStran: "Number of sell transactions during the afternoon session"
+tran: "Number of transactions"
+Mtran: "Number of transactions during the morning session"
+Atran: "Number of transactions during the afternoon session"
+
+# Value
+Bval: "Total buy value traded"
+MBval: "Total buy value traded during the morning session"
+ABval: "Total buy value traded during the afternoon session"
+Sval: "Total sell value traded"
+MSval: "Total sell value traded during the morning session"
+ASval: "Total sell value traded during the afternoon session"
+val: "Total value traded"
+Mval: "Total value traded during the morning session"
+Aval: "Total value traded during the afternoon session"
+
+# Volume
+RSSVol: "RSS Volume"
+AvgVol: "Average Volume per transaction (in lots, 1 lot = 100 shares)"
+MAvgVol: "Average Volume per transaction during the morning session (in lots, 1 lot = 100 shares)"
+AAvgVol: "Average Volume per transaction during the afternoon session (in lots, 1 lot = 100 shares)"
+
+MSvol: "Sell volume during the morning (in lots)"
+ASvol: "Sell volume during the afternoon (in lots)"
+Svol: "Sell volume (in lots)"
+
+MBvol: "Buy volume during the morning (in lots)"
+ABvol: "Buy volume during the afternoon (in lots)"
+Bvol: "Buy volume (in lots)"
+
+Mvol: "Volume during the morning (in lots)"
+Avol: "Volume during the afternoon (in lots)"
+
+# OMTM
+OMTMtran: "Off Market Transaction: Number of transactions"
+OMTMval: "Off Market Transaction: Value"
+OMTMvol: "Off Market Transaction: Volume"
+
+# Dir
+Dirval: "Direct Business Transaction: Value"
+Dirvol: "Direct Business Transaction: Volume"
+
+# Open
+Opentran: "Number of transactions during market open"
+Openval: "Value transacted during market open"
+Openvol: "Volume transacted during market open"
+
+# Fundamentals
+FYEDate: "Fiscal Year-End Date"
+Div: "Dividends given in entirety of the latest financial year (in ringgit)"
+DY: "Dividend Yield (in decimal)"
+EPS: "Earnings per share (latest financial year) (in ringgit)"
+NAB: "Latest financial year net asset value or book value (per share, in ringgit)"
+NetProfit: "Net profit (latest financial year) (in ringgit)"
+PE: "Price to earnings ratio"
+Revenue: "Revenue (latest financial year) (in ringgit)"
+L4QDate: "Latest quarter date"
+L4QDiv: "Trailing 4 quarters dividends (in ringgit)"
+L4QDY: "Trailing 4 quarters dividend yield (in decimal)"
+L4QEPS: "Trailing 4 quarters earnings per share (in ringgit)"
+L4QNAB: "Latest quarter net asset value or book value (per share, in ringgit)"
+L4QNetProfit: "Trailing 4 quarters net profit (in ringgit)"
+L4QPE: "Trailing 4 quarters price to earnings ratio"
+L4QRevenue: "Trailing 4 quarters revenue"
+
+# Warrant
+ConversionMethod: "Warrant conversion method"
+ConversionPeriod: "Warrant conversion period"
+CPpct: ""
+ExpiredDays: "Number of days till warrant matured"
+ExercisePrice: "Exercise price"
+MaturityDate: "Maturity date"
+Gearing: "Gearing"
+Premium: "Premium (in decimal)"
+WarrantRemarks: "Remarks (conversion ratio etc.)"
+UnderlyingClose: "Underlying stock's close price"
+
+# Avg Price - features
+AvgBPrice: "Average buy price (BVal/BVol)"
+AvgSPrice: "Average sell price (SVal/SVol)"
+MAvgPrice: "Morning average price (MVal/MVol)"
+AAvgPrice: "Afternoon average price (AVal/AVol)"
+
+# BS% - features
+Bpct: "Buy volume as a percentage of total volume (in percent)"
+MBpct: "Morning buy volume as a percentage of total morning volume (in percent)"
+ABpct: "Afternoon buy volume as a percentage of total afternoon volume (in percent)"
+Btranpct: "Buy transactions as a percentage of total transactions (in percent)"
+MBtranpct: "Morning buy transactions as a percentage of total morning transactions (in percent)"
+ABtranpct: "Afternoon buy transactions as a percentage of total afternoon transactions (in percent)"
+Bvalpct: "Buy value as a percentage of total value transacted (in percent)"
+MBvalpct: "Morning buy value as a percentage of total morning value transacted (in percent)"
+ABvalpct: "Afternoon buy value as a percentage of total afternoon value transacted (in percent)"
+
+# New PctChange1 and PriceChange1
+PctChange1: (Close/RefPrice)-1 (similar to PctChange, but PctChange is truncated to 5 decimal places most of the time)
+PriceChange1: Close-RefPrice (similar to PriceChange, but PriceChange is truncated to 3 decimal places most of the time)
