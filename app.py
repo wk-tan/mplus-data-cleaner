@@ -46,7 +46,7 @@ def handler(event, context):
                 table_ref="malaysia-stock-research.malaysia_derivatives.eod_data"
             ),
             source_type="csv",
-            write_disposition="append",
+            load_type="append",
         )
 
         print("Done:", current_date_str)
