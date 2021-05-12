@@ -190,6 +190,18 @@ class LoadMP:
         self.clean_remove_pct_plus(fdf, "Bvalpct", 1, False)
         self.clean_remove_pct_plus(fdf, "MBvalpct", 1, False)
         self.clean_remove_pct_plus(fdf, "ABvalpct", 1, False)
+        
+        # 2021/05/11
+        try:
+            # make RSS boolean
+            unique_rss = fdf["RSS"].unique()
+            if len(unique_rss) > 2:
+                print("Warning RSS not boolean! RSS unique:", unique_rss)
+                u1 = fdf["RSS"].isin(["Yes", "No"])
+                fdf.loc[~u1, "RSS"] = "No"
+        except Exception as err:
+            print("Exception @Warning RSS not boolean!", err)
+            
 
         # Additions
         fdf["PctChange1"] = fdf["Close"] / fdf["RefPrice"] - 1
