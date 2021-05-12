@@ -40,24 +40,18 @@ def handler(event, context):
         )
 
         # fire API to insert gcs latest clean_df to big_query
-        load_data(
-            source_uri="gs://malaysia-stock-eod-data/" + gcs_data_path,
-            target_destination=bigquery.Table(
-                table_ref="malaysia-stock-research.malaysia_derivatives.eod_data"
-            ),
-            source_type="csv",
-            load_type="append",
-        )
-
-        # fire API to insert gcs latest clean_df to big_query partitioned+clustered table
-        load_data(
-            source_uri="gs://malaysia-stock-eod-data/" + gcs_data_path,
-            target_destination=bigquery.Table(
-                table_ref="malaysia-stock-research.malaysia_derivatives.eod_data_c"
-            ),
-            source_type="csv",
-            load_type="append",
-        )
+        table_refs = [
+            "malaysia-stock-research.malaysia_derivatives.eod_data",
+            "malaysia-stock-research.malaysia_derivatives.eod_data_c",
+            "malaysia-stock-research.malaysia_derivatives.eod_data_pnc",
+        ]
+        for table_ref in table_refs:
+            load_data(
+                source_uri="gs://malaysia-stock-eod-data/" + gcs_data_path,
+                target_destination=bigquery.Table(table_ref=table_ref),
+                source_type="csv",
+                load_type="append",
+            )
 
         print("Done:", current_date_str)
     else:
