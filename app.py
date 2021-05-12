@@ -49,6 +49,16 @@ def handler(event, context):
             load_type="append",
         )
 
+        # fire API to insert gcs latest clean_df to big_query partitioned+clustered table
+        load_data(
+            source_uri="gs://malaysia-stock-eod-data/" + gcs_data_path,
+            target_destination=bigquery.Table(
+                table_ref="malaysia-stock-research.malaysia_derivatives.eod_data_c"
+            ),
+            source_type="csv",
+            load_type="append",
+        )
+
         print("Done:", current_date_str)
     else:
         print("Duplicated:", current_date_str)
